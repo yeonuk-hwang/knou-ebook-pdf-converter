@@ -22,7 +22,7 @@ class BrowserHandler:
 
     def __enter__(self) -> Self:
         """Context manager entry point"""
-        self.open()  # pyright: ignore[reportUnusedCallResult]
+        self._open()  # pyright: ignore[reportUnusedCallResult]
         return self
 
     def __exit__(
@@ -32,14 +32,14 @@ class BrowserHandler:
         exc_tb: TracebackType | None,
     ) -> None:
         """Context manager exit point"""
-        self.close()
+        self._close()
 
-    def open(self) -> None:
+    def _open(self) -> None:
         self._playwright = sync_playwright().start()
         self._browser = self._playwright.chromium.launch(headless=False)
         self._page = self._browser.new_page()
 
-    def close(self) -> None:
+    def _close(self) -> None:
         """Closes all browser resources"""
         if self._page:
             self._page.close()
