@@ -48,3 +48,11 @@ Additionally, it is worth leveraging LLMs to refine the result of the OCR. This 
 In Step 4, PaddleOCR returns output as a list. Each item in the list contains a `bounding box`, `text`, and `recognition confidence`.
 
 I need to figure out how to create a pdf from multiple images, and add text layers to the pdf to make it searchable.
+
+## Miscellaneous
+
+### Motivation for the Project
+
+1. Automation of repetitive tasks: Previously, I used Keyboard Maestro to semi-automatically capture screenshots, and tools like PDF Expert for OCR and to convert images to PDF. However, these tasks were cumbersome, and PDF Expert offers the features I need for a fee, so I decided to write a program to solve this issue.
+
+2. Practicing Python: I have been developing with TypeScript, but recently I noticed that Python is widely used in AI including LLMs, Machine Learning. Personally, I believe that Python's versatility and well-structured ecosystem are worth learning, so I'm attempting to create a package in Python.
