@@ -1,7 +1,7 @@
 [project]
-name = "knou-create-pdf-books"
+name = "knou-ebook-pdf-converter"
 version = "0.1.0"
-description = "Add your description here"
+description = "Convert knou ebooks into searchable pdfs"
 readme = "README.md"
 requires-python = ">=3.10.2"
 dependencies = []
