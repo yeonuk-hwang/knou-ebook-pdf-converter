@@ -16,7 +16,7 @@ Opening the ebook in headless mode on behalf of the user would be challenging, a
 
 There is a drawback to using a headed browser, as the user cannot do anything else while the browser is in operation. The browser must remain focused, as the program continually clicks the next button and takes a screenshot. However, I believe the necessity of using headed mode outweighs this drawback; therefore, I have decided to proceed with headed mode.
 
-I prefer using Playwright over Puppeteeer because the locators, such as `getByRole` and `getByText` are easier to work with than traditional CSS selectors used in Puppeteer.
+I prefer using Playwright over Puppeteeer because the locators, such as `getByRole` and `getByText` are easier to work with than traditional CSS selectors used in Puppeteer. Additionally, using Playwright's inspector makes it easier to specify the selectors for the desired elements.
 
 ### 2. Ask user to open the ebook viewer in pdf viewer
 
