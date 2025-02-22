@@ -1,4 +1,5 @@
 from types import TracebackType
+from typing import Literal
 
 from playwright.sync_api import Browser, Page, Playwright, sync_playwright
 from typing_extensions import Self  # for Python < 3.11
@@ -30,9 +31,10 @@ class BrowserHandler:
         exc_type: type[BaseException] | None,
         exc_val: BaseException | None,
         exc_tb: TracebackType | None,
-    ) -> None:
+    ) -> Literal[False]:
         """Context manager exit point"""
         self._close()
+        return False
 
     def _open(self) -> None:
         self._playwright = sync_playwright().start()
