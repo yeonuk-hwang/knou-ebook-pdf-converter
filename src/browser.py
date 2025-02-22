@@ -52,7 +52,7 @@ class BrowserHandler:
             slow_mo=500,
         )
         self._context = await self._browser.new_context(
-            viewport=ViewportSize(width=1920, height=1080)
+            viewport=ViewportSize(width=1920, height=1440)
         )
         await self._context.add_init_script("""
             const defaultGetter = Object.getOwnPropertyDescriptor(
