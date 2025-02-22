@@ -3,6 +3,7 @@ import asyncio
 from src.browser import BrowserHandler
 from src.ebook_parser import EbookParser
 from src.ebook_service import EbookService
+from src.ocr import SearchablePDFCreator
 
 
 async def async_input(prompt: str) -> str:
@@ -34,13 +35,9 @@ async def main() -> None:
             print(f"- {file_path}")
 
 
-import easyocr
-
 if __name__ == "__main__":
-    reader = easyocr.Reader(["ko", "en"])
+    image_folder = "images"
+    output_pdf = "output_searchable.pdf"
 
-    with open("./images/489.png", "rb") as f:
-        img = f.read()
-        result = reader.readtext(img, detail=0)
-        print(result)
-    # asyncio.run(main())
+    creator = SearchablePDFCreator()
+    creator.process_images(image_folder, output_pdf)
