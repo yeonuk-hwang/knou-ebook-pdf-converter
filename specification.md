@@ -30,8 +30,11 @@ I intend to use it personally; thus, there are not many requirements to validate
 
 - Calculate the total number of pages.
 - Iterate through the following actions until the last page is reached:
+
   - Take a screenshot of the current page.
   - Navigate to the next page by clikcing the 'Next' button.
+
+  - Optional: Showing progress bar would be helpful.
 
 ### 4. OCR every images
 
