@@ -92,12 +92,13 @@ class BrowserHandler:
 
     async def _close(self) -> None:
         """Closes all browser resources"""
-        if self._page:
-            await self._page.close()
+        if self._context:
+            await self._context.close()
         if self._browser:
             await self._browser.close()
         if self._playwright:
             await self._playwright.stop()
+        print("browser has been closed gracefully")
 
     @property
     def browser(self) -> Browser:
