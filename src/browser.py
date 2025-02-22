@@ -22,7 +22,7 @@ class BrowserHandler:
 
     def __enter__(self) -> Self:
         """Context manager entry point"""
-        self._open()  # pyright: ignore[reportUnusedCallResult]
+        self._open()
         return self
 
     def __exit__(
