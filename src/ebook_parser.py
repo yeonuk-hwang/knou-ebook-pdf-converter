@@ -30,6 +30,9 @@ class EbookParser:
         next_button = self._page.locator("#toolbarViewerRight_knou #next")
         await next_button.click()
 
+    async def set_page_fit_scale(self) -> None:
+        _ = await self._page.select_option("select#scaleSelect", "page-fit")
+
     @staticmethod
     def _parse_page_numbers(text: str) -> tuple[int, int]:
         numbers = list(map(int, re.findall(r"\d+", text)))
@@ -40,6 +43,11 @@ class EbookParser:
             )
 
         return (numbers[0], numbers[1])
+
+    @staticmethod
+    def is_ebook_viewer_page(page: Page) -> bool:
+        ebook_viewer_base_url = "https://press.knou.ac.kr/common/supportPdfViewer.do"
+        return page.url.startswith(ebook_viewer_base_url)
 
     async def _get_page_info(self) -> PageInfo:
         """Extract current and total page numbers from the page indicator text."""

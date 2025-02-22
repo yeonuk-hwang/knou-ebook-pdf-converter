@@ -12,18 +12,21 @@ async def async_input(prompt: str) -> str:
 
 async def main() -> None:
     async with BrowserHandler() as handler:
-        # 사용자에게 안내 메시지 출력
         print("브라우저가 실행되었습니다.")
         print("원하는 페이지로 이동한 후, Enter 키를 눌러주세요.")
 
-        # 사용자가 Enter 키를 누를 때까지 대기
-        await async_input("준비가 되면 Enter 키를 눌러주세요: ")
+        _ = await async_input("준비가 되면 Enter 키를 눌러주세요: ")
 
-        page = handler.page
+        pages = handler.context.pages
+        ebook_viewer_page = next(
+            (page for page in pages if EbookParser.is_ebook_viewer_page(page)), None
+        )
 
-        # 현재 페이지에서 스크린샷 캡처 시작
-        parser = EbookParser(page)
-        service = EbookService(page=page, parser=parser)
+        if ebook_viewer_page is None:
+            raise LookupError("No ebook viewer page found")
+
+        parser = EbookParser(ebook_viewer_page)
+        service = EbookService(page=ebook_viewer_page, parser=parser)
         captured_files = await service.capture_all_pages()
 
         print(f"\n캡처 완료! 총 {len(captured_files)}개의 파일이 저장되었습니다.")

@@ -47,13 +47,14 @@ class BrowserHandler:
     async def _open(self) -> None:
         self._playwright = await async_playwright().start()
         self._browser = await self._playwright.chromium.launch(
-            executable_path="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
             headless=False,
             slow_mo=500,
         )
         self._context = await self._browser.new_context(
             viewport=ViewportSize(width=1920, height=1440)
         )
+
+        """set webdriver to bypass bot detection"""
         await self._context.add_init_script("""
             const defaultGetter = Object.getOwnPropertyDescriptor(
               Navigator.prototype,
@@ -79,6 +80,7 @@ class BrowserHandler:
             patchedGetter.apply(navigator);
             patchedGetter.toString();
         """)
+
         self._context.on("page", self._on_new_page)
         self._page = await self._context.new_page()
         _ = await self._page.goto(
@@ -101,10 +103,10 @@ class BrowserHandler:
         print("browser has been closed gracefully")
 
     @property
-    def browser(self) -> Browser:
-        if self._browser is None or not self._browser.is_connected():
+    def context(self) -> BrowserContext:
+        if self._context is None:
             raise BrowserNotOpenedError()
-        return self._browser
+        return self._context
 
     @property
     def page(self) -> Page:
