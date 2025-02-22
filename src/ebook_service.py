@@ -13,13 +13,16 @@ class EbookService:
     async def capture_all_pages(self) -> list[str]:
         screenshot_paths: list[str] = []
 
-        for index in range(await self._parser.calculate_total_pages()):
+        for index in range(await self._parser.get_total_pages()):
             current_page = index + 1
 
             file_path = f"images/{current_page}.png"
-            _ = await page.locator(f'[data-page-label="{current_page}"]').screenshot(
-                path=file_path
+
+            book_current_page_locator = self._page.locator(
+                f'[data-page-label="{current_page}"]'
             )
+
+            _ = await book_current_page_locator.screenshot(path=file_path)
 
             await self._parser.navigate_to_next_page()
 
