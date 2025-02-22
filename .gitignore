@@ -8,3 +8,9 @@ wheels/
 
 # Virtual environments
 .venv
+
+# macOS specific file
+.DS_Store
+
+# screenshot images
+images
