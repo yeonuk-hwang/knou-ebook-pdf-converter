@@ -34,5 +34,13 @@ async def main() -> None:
             print(f"- {file_path}")
 
 
+import easyocr
+
 if __name__ == "__main__":
-    asyncio.run(main())
+    reader = easyocr.Reader(["ko", "en"])
+
+    with open("./images/489.png", "rb") as f:
+        img = f.read()
+        result = reader.readtext(img, detail=0)
+        print(result)
+    # asyncio.run(main())
