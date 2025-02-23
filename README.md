@@ -38,8 +38,8 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
 
 ```bash
 # 저장소 클론
-git clone [repository-url]
-cd [repository-name]
+git clone https://github.com/yeonuk-hwang/knou-ebook-pdf-converter.git
+cd knou-ebook-pdf-converter
 
 # 가상환경 생성 및 의존성 설치
 uv sync --frozen
