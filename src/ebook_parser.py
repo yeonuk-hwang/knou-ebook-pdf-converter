@@ -1,30 +1,23 @@
 import re
-from dataclasses import dataclass
 
 from playwright.async_api import Page
 
 
-@dataclass(frozen=True)
-class PageInfo:
-    current: int
-    total: int
-
-    def is_last_page(self) -> bool:
-        """Check if current page is the last page."""
-        return self.current == self.total
-
-
 class EbookParser:
-    _PAGE_INDICATOR_PATTERN: re.Pattern[str] = re.compile(r"\(\d+ of \d+\)")
-
     def __init__(self, page: Page) -> None:
         self._page: Page = page
 
     async def get_total_pages(self) -> int:
-        return (await self._get_page_info()).total
+        page_text = await self._get_page_indicator_text()
 
-    async def is_last_page(self) -> bool:
-        return (await self._get_page_info()).is_last_page()
+        total: int | None = re.findall(r"of (\d+)", page_text)[0]
+
+        print(total)
+
+        if total is None:
+            raise LookupError("eBook Viewer의 총 페이지 수를 찾는데 실패했습니다.")
+
+        return int(total)
 
     async def navigate_to_next_page(self) -> None:
         next_button = self._page.locator("#toolbarViewerRight_knou #next")
@@ -34,28 +27,12 @@ class EbookParser:
         _ = await self._page.select_option("select#scaleSelect", "page-fit")
 
     @staticmethod
-    def _parse_page_numbers(text: str) -> tuple[int, int]:
-        numbers = list(map(int, re.findall(r"\d+", text)))
-
-        if len(numbers) != 2:
-            raise ValueError(
-                f"Expected exactly two numbers in '{text}', found {len(numbers)}"
-            )
-
-        return (numbers[0], numbers[1])
-
-    @staticmethod
     def is_ebook_viewer_page(page: Page) -> bool:
         ebook_viewer_base_url = "https://press.knou.ac.kr/common/supportPdfViewer.do"
-        return page.url.startswith(ebook_viewer_base_url)
-
-    async def _get_page_info(self) -> PageInfo:
-        """Extract current and total page numbers from the page indicator text."""
-        page_text = await self._get_page_indicator_text()
-        current, total = self._parse_page_numbers(page_text)
-        return PageInfo(current=current, total=total)
+        result: bool = page.url.startswith(ebook_viewer_base_url)
+        return result
 
     async def _get_page_indicator_text(self) -> str:
         """Get the text content of the page indicator element."""
-        page_indicator = self._page.get_by_text(self._PAGE_INDICATOR_PATTERN)
+        page_indicator = self._page.locator(".toolbarPageMax")
         return str(await page_indicator.inner_text())

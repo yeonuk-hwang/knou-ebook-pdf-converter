@@ -31,7 +31,9 @@ class EbookService:
                 f"Screenshot saved as {file_path} | Progress: {current_page} / {total_pages}"
             )
 
-            if not await self._parser.is_last_page():
+            is_last_page = current_page == total_pages
+
+            if not is_last_page:
                 await self._parser.navigate_to_next_page()
 
         return screenshot_paths
