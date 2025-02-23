@@ -1,6 +1,4 @@
-import asyncio
-
-from playwright.async_api import Browser, Page
+from playwright.async_api import Page
 
 from src.ebook_parser import EbookParser
 
@@ -15,7 +13,8 @@ class EbookService:
 
         await self._parser.set_page_fit_scale()
 
-        for index in range(await self._parser.get_total_pages()):
+        total_pages = await self._parser.get_total_pages()
+        for index in range(total_pages):
             current_page = index + 1
 
             file_path = f"images/{current_page}.png"
@@ -28,7 +27,9 @@ class EbookService:
 
             screenshot_paths.append(file_path)
 
-            print(f"Screenshot saved as {file_path}")
+            print(
+                f"Screenshot saved as {file_path} | Progress: {current_page} / {total_pages}"
+            )
 
             if not await self._parser.is_last_page():
                 await self._parser.navigate_to_next_page()

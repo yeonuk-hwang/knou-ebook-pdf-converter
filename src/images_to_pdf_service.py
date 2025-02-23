@@ -1,7 +1,6 @@
 from abc import ABC, abstractmethod
 from io import BytesIO
 from pathlib import Path
-from typing import BinaryIO
 
 import img2pdf
 from typing_extensions import override
