@@ -5,6 +5,8 @@ from pathlib import Path
 import img2pdf
 from typing_extensions import override
 
+from src.ocr_service import OCRService
+
 
 class PDFConverter(ABC):
     @abstractmethod
@@ -31,12 +33,17 @@ class Img2PDFConverter(PDFConverter):
 
 
 class ImagesToPDFService:
-    def __init__(self, converter: PDFConverter | None = None):
+    def __init__(
+        self,
+        converter: PDFConverter | None = None,
+        ocr_service: OCRService | None = None,
+    ):
         self.converter: PDFConverter = converter or Img2PDFConverter()
+        self.ocr_service: OCRService = ocr_service or OCRService()
 
     def convert_images_to_pdf(
-        self, image_directory: str | Path, output_filename: str | Path | None
-    ) -> BytesIO:
+        self, image_directory: str | Path, output_filename: str | Path
+    ) -> None:
         image_dir = Path(image_directory)
 
         if not image_dir.is_dir():
@@ -48,17 +55,15 @@ class ImagesToPDFService:
             raise ValueError(f"No supported image files found in {image_directory}")
 
         print(f"Converting {len(image_files)} images to PDF...")
+        pdf_bytes: BytesIO = self.converter.convert(image_files)
 
-        result: BytesIO = self.converter.convert(image_files)
+        print("Applying OCR to make the PDF searchable...")
+        searchable_pdf_bytes: BytesIO = self.ocr_service.make_searchable_pdf(pdf_bytes)
 
-        if output_filename is not None:
-            output_path = Path(output_filename)
-            output_path.parent.mkdir(parents=True, exist_ok=True)
+        output_path = Path(output_filename)
+        output_path.parent.mkdir(parents=True, exist_ok=True)
 
-            with open(output_path, "wb") as pdf_file:
-                _ = pdf_file.write(result.read())
-                _ = result.seek(0)
+        with open(output_path, "wb") as pdf_file:
+            _ = pdf_file.write(searchable_pdf_bytes.read())
 
-            print(f"PDF created successfully: {output_path}")
-
-        return result
+        print(f"PDF created successfully: {output_path}")
