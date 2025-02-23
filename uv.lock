@@ -249,12 +249,6 @@ wheels = [
 ]
 
 [[package]]
-name = "fpdf"
-version = "1.7.2"
-source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/37/c6/608a9e6c172bf9124aa687ec8b9f0e8e5d697d59a5f4fad0e2d5ec2a7556/fpdf-1.7.2.tar.gz", hash = "sha256:125840783289e7d12552b1e86ab692c37322e7a65b96a99e0ea86cca041b6779", size = 39504 }
-
-[[package]]
 name = "fsspec"
 version = "2025.2.0"
 source = { registry = "https://pypi.org/simple" }
@@ -360,17 +354,16 @@ wheels = [
 
 [[package]]
 name = "knou-ebook-pdf-converter"
-version = "0.1.0"
+version = "1.0.0"
 source = { virtual = "." }
 dependencies = [
     { name = "easyocr" },
-    { name = "fpdf" },
     { name = "img2pdf" },
     { name = "mypy" },
     { name = "ocrmypdf" },
     { name = "ocrmypdf-easyocr" },
-    { name = "pillow" },
     { name = "playwright" },
+    { name = "pytest" },
     { name = "pytest-asyncio" },
     { name = "pytest-mock" },
     { name = "torch" },
@@ -386,13 +379,12 @@ dev = [
 [package.metadata]
 requires-dist = [
     { name = "easyocr", specifier = ">=1.7.2" },
-    { name = "fpdf", specifier = ">=1.7.2" },
     { name = "img2pdf", specifier = ">=0.6.0" },
     { name = "mypy", specifier = ">=1.15.0" },
     { name = "ocrmypdf", specifier = ">=16.9.0" },
     { name = "ocrmypdf-easyocr", git = "https://github.com/ocrmypdf/OCRmyPDF-EasyOCR.git" },
-    { name = "pillow", specifier = ">=11.1.0" },
     { name = "playwright", specifier = ">=1.50.0" },
+    { name = "pytest", specifier = ">=8.3.4" },
     { name = "pytest-asyncio", specifier = ">=0.25.3" },
     { name = "pytest-mock", specifier = ">=3.14.0" },
     { name = "torch", specifier = ">=2.6.0" },
