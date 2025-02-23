@@ -29,7 +29,7 @@ eBook Viewer를 OCR이 적용된 검색 가능한 PDF로 변환하는 프로그�
 curl -LsSf https://astral.sh/uv/install.sh | sh
 
 # Windows (PowerShell)
-(Invoke-WebRequest -Uri "https://astral.sh/uv/install.ps1" -UseBasicParsing).Content | pwsh -Command -
+powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
 ```
 
 자세한 설치 방법은 [uv 공식 문서](https://docs.astral.sh/uv/getting-started/installation/)를 참고하세요.
