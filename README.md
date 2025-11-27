@@ -47,7 +47,7 @@ cd knou-ebook-pdf-converter
 uv sync --frozen
 
 # Install Playwright browsers
-playwright install
+uv run playwright install
 ```
 
 ## Usage
@@ -89,6 +89,29 @@ uv run main.py
 
 - Recognition accuracy may be lower compared to commercial OCR tools
 - Always cross-check important content with the original source
+
+## Technical Decisions
+
+This project involved several key technical decisions to balance automation, usability, and maintainability:
+
+### Browser Automation
+
+- **Headed mode instead of headless**: Since users need to log in with their own credentials and select specific eBooks, the browser runs in headed (visible) mode. This approach prioritizes flexibility over background operation.
+- **Playwright over Puppeteer**: Chose Playwright for its intuitive locators (`getByRole`, `getByText`) and better developer experience with the Playwright Inspector.
+
+### Viewer Selection
+
+- **Old PDF viewer required**: The new eBook viewer displays content in two-page mode, which complicates screenshot processing. The old PDF viewer's single-page mode provides cleaner, more consistent captures.
+
+### OCR Engine
+
+- **PaddleOCR**: Selected based on community feedback and performance comparisons. Implemented with an abstraction layer to allow future switching between OCR engines (EasyOCR, Tesseract, etc.) without major refactoring.
+
+### Architecture
+
+- **Separation of concerns**: The tool separates capture and PDF generation into distinct steps, allowing users to organize images before processing and enabling manual intervention if needed.
+
+For detailed decision rationale and technical specifications, see [specification.md](specification.md).
 
 ## Troubleshooting
 

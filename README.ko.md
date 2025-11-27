@@ -45,7 +45,7 @@ cd knou-ebook-pdf-converter
 uv sync --frozen
 
 # Playwright 브라우저 설치
-playwright install
+uv run playwright install
 ```
 
 ## 실행 방법
