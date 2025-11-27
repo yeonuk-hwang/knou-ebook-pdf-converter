@@ -1,28 +1,30 @@
-# KNOU-eBook-PDF-converter
+# KNOU eBook to PDF Converter
 
-eBook Viewer를 OCR이 적용된 검색 가능한 PDF로 변환하는 프로그램입니다.
+[한국어 README](README.ko.md)
 
-## 주요 기능
+A tool to convert KNOU (Korea National Open University) eBook Viewer content into searchable PDFs with OCR (Optical Character Recognition).
 
-- 이북 페이지 자동 캡처
-- OCR을 통한 텍스트 추출
-- 검색 가능한 PDF 생성
+## Features
 
-## ⚠️ 법적 고지사항
+- Automated eBook page capture
+- OCR-based text extraction
+- Searchable PDF generation
 
-**본 도구는 개인적인 학습 목적으로만 사용해야 합니다.**
+## ⚠️ Legal Notice
 
-- 저작권법에 따라 캡처한 콘텐츠를 무단 배포하거나 상업적으로 사용할 수 없습니다.
-- 개인 학습 목적 외의 사용은 법적 제재를 받을 수 있습니다.
-- 캡처한 콘텐츠의 사용으로 인한 모든 법적 책임은 사용자에게 있습니다.
+**This tool is intended for personal learning purposes only.**
 
-## 설치 방법
+- Unauthorized distribution or commercial use of captured content is prohibited under copyright law.
+- Use beyond personal learning purposes may result in legal consequences.
+- Users are solely responsible for all legal implications arising from the use of captured content.
 
-### 1. 필수 요구사항
+## Installation
+
+### 1. Prerequisites
 
 - [uv](https://docs.astral.sh/uv/): Python package manager
 
-### 2. uv 설치
+### 2. Install uv
 
 ```bash
 # macOS/Linux
@@ -32,70 +34,70 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
 powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
 ```
 
-자세한 설치 방법은 [uv 공식 문서](https://docs.astral.sh/uv/getting-started/installation/)를 참고하세요.
+For detailed installation instructions, refer to the [uv official documentation](https://docs.astral.sh/uv/getting-started/installation/).
 
-### 3. 프로젝트 설정
+### 3. Project Setup
 
 ```bash
-# 저장소 클론
+# Clone the repository
 git clone https://github.com/yeonuk-hwang/knou-ebook-pdf-converter.git
 cd knou-ebook-pdf-converter
 
-# 가상환경 생성 및 의존성 설치
+# Create virtual environment and install dependencies
 uv sync --frozen
 
-# Playwright 브라우저 설치
+# Install Playwright browsers
 playwright install
 ```
 
-## 실행 방법
+## Usage
 
 ```bash
 uv run main.py
 ```
 
-## 사용 방법
+## How to Use
 
-### 기본 사용법
+### Basic Workflow
 
-1. 프로그램 실행 후 자동으로 열리는 브라우저에서 KNOU 이북 사이트에 로그인합니다.
-2. 원하는 교재를 선택하고 반드시 **구 PDF 뷰어**로 엽니다.
-3. 메인 메뉴에서 원하는 작업을 선택합니다:
-   - 1: 이북 페이지 캡처 - 현재 열린 교재의 페이지들을 자동으로 캡처
-   - 2: 캡처된 이미지로 PDF 생성 - OCR 처리 후 검색 가능한 PDF 생성
-   - 3: 종료
+1. After running the program, log in to the KNOU eBook site in the automatically opened browser.
+2. Select the desired textbook and **open it using the old PDF viewer**.
+3. Choose your desired operation from the main menu:
+   - 1: Capture eBook pages - Automatically captures all pages of the currently opened textbook
+   - 2: Generate PDF from captured images - Creates a searchable PDF with OCR processing
+   - 3: Exit
 
-### 작업 순서
+### Step-by-Step Process
 
-1. 먼저 옵션 1로 모든 페이지를 캡처합니다.
-2. 캡쳐된 페이지들을 교재는 `images/textbook` 워크북은 `images/workbook` 폴더에 분류해주세요
-3. 분류가 완료되면 옵션 2로 PDF를 생성합니다.
-4. 생성된 PDF는 `output` 폴더에서 확인할 수 있습니다.
+1. First, capture all pages using option 1.
+2. Organize captured pages into folders: `images/textbook` for textbooks and `images/workbook` for workbooks.
+3. Once organized, generate the PDF using option 2.
+4. The generated PDF will be available in the `output` folder.
 
-## 주의사항
+## Important Notes
 
-### 사용 전 확인사항
+### Before Use
 
-- 반드시 구 PDF 뷰어로 이북을 열어야 합니다 (신규 뷰어 미지원)
+- You must open the eBook using the old PDF viewer (new viewer is not supported)
 
-### 파일 관리
+### File Management
 
-- 캡처된 이미지는 자동으로 `images` 폴더에 저장됩니다.
-- 최종 PDF는 `output` 폴더에 생성됩니다
+- Captured images are automatically saved in the `images` folder
+- Final PDFs are generated in the `output` folder
 
-### OCR 관련
+### OCR Related
 
-- 상업용 OCR 도구에 비해 인식률이 다소 낮을 수 있습니다
-- 중요한 내용은 반드시 원본과 대조 확인하세요
+- Recognition accuracy may be lower compared to commercial OCR tools
+- Always cross-check important content with the original source
 
-## 문제 해결
+## Troubleshooting
 
-- 브라우저 실행 오류 시: `playwright install` 명령어로 브라우저를 재설치해보세요
+- If you encounter browser launch errors, try reinstalling browsers with: `playwright install`
 
-## 기여하기
+## Contributing
 
-- 버그 리포트나 기능 제안은 Issue를 통해 제출해주세요
+- Bug reports and feature suggestions are welcome via Issues
 
-## 라이선스
+## License
 
-이 프로젝트는 MIT 라이선스를 따릅니다.
+This project is licensed under the MIT License.
